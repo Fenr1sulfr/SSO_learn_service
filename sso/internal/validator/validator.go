@@ -15,6 +15,9 @@ func New() *Validator {
 		Errors: make(map[string]string),
 	}
 }
+func Matches(value string, rx *regexp.Regexp) bool {
+	return rx.Match([]byte(value))
+}
 
 func (v *Validator) Valid() bool {
 	return len(v.Errors) == 0

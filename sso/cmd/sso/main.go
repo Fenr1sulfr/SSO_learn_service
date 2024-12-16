@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"sso/sso/internal/app"
 	"sso/sso/internal/config"
 	"sso/sso/internal/logger"
 )
@@ -16,6 +17,8 @@ func main() {
 	cfg := config.MustLoad()
 	logger := setupLogger(envLocal)
 	logger.PrintInfo("Server started: 	"+cfg.Env, nil)
+	application := app.New(logger, cfg.GRPC.Port, cfg.StoragePath, cfg.TokenTTL)
+	application.GRPCSrv.MustRun()
 
 }
 
